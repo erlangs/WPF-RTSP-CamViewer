@@ -111,6 +111,9 @@ namespace SimpleRtspPlayer.RawFramesDecoding.FFmpeg
 
         private void TransformTo(IntPtr buffer, int bufferStride, TransformParameters parameters)
         {
+            if (_disposed)
+                return;
+
             if (!_scalersMap.TryGetValue(parameters, out FFmpegDecodedVideoScaler videoScaler))
             {
                 videoScaler = FFmpegDecodedVideoScaler.Create(_currentFrameParameters, parameters);
